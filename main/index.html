@@ -239,7 +239,7 @@ function renderCart() {
 
     <form class="coupon" id="coupon-form">
       <label class="sr-only" for="coupon-input">Coupon code</label>
-      <input id="coupon-input" name="coupon" placeholder="Coupon code" autocomplete="off" value="${state.couponError ? state.couponError.typed : (q.coupon || '')}">
+      <input id="coupon-input" name="coupon" placeholder="Coupon code" autocomplete="off" value="${escapeAttr(state.couponError ? state.couponError.typed : (q.coupon || ''))}">
       <button type="submit" class="secondary">Apply</button>
     </form>
     <p class="coupon-msg ${state.couponError ? 'error' : 'ok'}" data-testid="coupon-msg">${
@@ -256,6 +256,10 @@ function renderCart() {
     </table>
 
     <button type="button" class="checkout" id="checkout">Checkout</button>`;
+}
+
+function escapeAttr(value) {
+  return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function applyCoupon(typed) {
